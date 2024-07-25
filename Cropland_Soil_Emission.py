@@ -125,7 +125,6 @@ for i in (merged_data['Year'].iloc[0 :]):
     Soil_df.loc[:, 'Year_{}'.format(i)] =pd.Series(vec2[c])
     c+=1
 
-#Soil_df.drop(columns=Soil_df.columns[0], axis=1, inplace=True)
 
 c=0
 i = merged_data['Year'][0] #1
@@ -168,7 +167,7 @@ Cropland_C_Seq['Carbon_Stock']=Soil_df['Total_C_Stock'] / 1000000 # Convert to (
 Cropland_C_Seq['Carbon_Seq_MtCO2']=(Cropland_C_Seq['Carbon_Seq'])*3.67
 Cropland_C_Seq['Carbon_Stock_MtCO2']=(Cropland_C_Seq['Carbon_Stock'])*3.67
 
-Cropland_C_Seq['Carbon_Stock_MtCO2']=(Cropland_C_Seq['Carbon_Stock'])*3.67
+
 
 Cropland_C_Seq.to_csv("D:\GCAM_Output_Analysis\GCAM_Crop_CarbonSeq\Cropland_Soil_Seq\Output\Cropland_Soil_Emissions_Sequestration_NZ_FP_2070.csv", index=False)
 
