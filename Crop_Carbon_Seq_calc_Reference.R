@@ -56,7 +56,6 @@ process_year <- function(yr) {
     filter(region=="India") %>%
     filter(year==yr) %>%
     rename(LandLeaf=technology) %>%
-#    mutate(value=value*0.75) %>%       # Reduction of 25% yield in different basins if required...
     select(LandLeaf,year,value)->
     Crop_Yield_year
 
@@ -71,7 +70,7 @@ process_year <- function(yr) {
     left_join(India_df, by='LandLeaf') %>%
     rename(Region=region.x) %>%
     mutate(C_density = round(value/ (HarvestIndex) * (1 + Root_Shoot) * (1 - WaterContent) *
-                                0.45 * 0.126,  3),
+                                0.45 * 0.126,  3), # ideally the multiplication factor should be 0.5, however, we have used 0.126 to match with BUR reported value 
            # For tree crops, replace the values calculated above with tree-specific carbon contents elsewhere calculated
            C_density = if_else(is.na(Tree_Cdensity_kgm2), C_density,
                                round(Tree_Cdensity_kgm2, 3))) %>%
@@ -118,12 +117,7 @@ crop_soil_seq_5_years <- crop_soil_seq[crop_soil_seq$Year %in% years, ]
 Cropland_Seq <- Yearly_Cropland_Seq %>%
   left_join(crop_soil_seq_5_years, by='Year') %>%
   select(-c('Carbon_Seq','Carbon_Stock','Carbon_Stock_MtCO2')) %>%
-  mutate(Cropland_Seq = ((Cropland_VegC_Seq)*-1) + Carbon_Seq_MtCO2 ) #%>%
-#  select(-c('Cropland_VegC_Seq','Carbon_Seq_MtCO2')) %>%
-#  left_join(Other_Arable_soil_seq_5_years, by='Year') %>%
-#  select(-c('Carbon_Seq','Carbon_Stock','Carbon_Stock_MtCO2')) %>%
-#  mutate(Total_Cropland_Seq_MtCO2 = Cropland_Seq-Carbon_Seq_MtCO2) %>%
-#  select(-c('Cropland_Seq','Carbon_Seq_MtCO2'))
+  mutate(Cropland_Seq = ((Cropland_VegC_Seq)*-1) + Carbon_Seq_MtCO2 ) 
 
 write.csv(Cropland_Seq,"Final_Cropland_Sequestration_Reference.csv", row.names = FALSE)
 ###########################
