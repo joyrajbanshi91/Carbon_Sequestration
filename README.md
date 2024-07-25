@@ -1,6 +1,6 @@
 # Carbon Sequestration in Cropland 
 
-Calculation of cropland vegetative and soil carbon sequestration using the methods explained in Kyle et al. (2011) and following the GCAM land module methods.
+Calculation of cropland vegetative and soil carbon sequestration using the methods explained in Kyle et al. (2011) and following the GCAM land module methods with some adjustments.
 
 For further details, please refer to:
 
